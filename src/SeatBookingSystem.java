@@ -84,4 +84,80 @@ public class SeatBookingSystem {
             }
         } while (valid == false);
     }
+
+    public static void reserve() {
+        String seatClass;
+        boolean isWindow = false;
+        boolean isAisle = false;
+        boolean isTable = false;
+        String eMail;
+
+        System.out.println("- - Seat Booking System - -\n\n- - SEAT REQUIREMENTS - -\n");
+
+        boolean valid = true;
+        do {
+            valid = true;
+            System.out.println("STD or 1ST :");
+            seatClass = keyboard.next().trim().toLowerCase();
+            if (!(seatClass.equals("std") || seatClass.equals("1st"))) {
+                valid = false;
+                System.out.println("ERROR! An input of STD or 1ST is required!");
+            }
+        } while (valid == false);
+
+        String userInput;
+        do {
+            valid = true;
+            System.out.println("Window (Y/N) :");
+            userInput = keyboard.next().trim().toLowerCase();
+            if (userInput.equals("y")) {
+                isWindow = true;
+            } else if (userInput.equals("n")) {
+                isWindow = false;
+            } else {
+                valid = false;
+                System.out.println("ERROR! An input of Y or N is required!");
+            }
+        } while (valid == false);
+
+        do {
+            valid = true;
+            System.out.println("Aisle (Y/N) :");
+            userInput = keyboard.next().trim().toLowerCase();
+            if (userInput.equals("y")) {
+                isAisle = true;
+            } else if (userInput.equals("n")) {
+                isAisle = false;
+            } else {
+                valid = false;
+                System.out.println("ERROR! An input of Y or N is required!");
+            }
+        } while (valid == false);
+
+        do {
+            valid = true;
+            System.out.println("Table (Y/N) :");
+            userInput = keyboard.next().trim().toLowerCase();
+            if (userInput.equals("y")) {
+                isTable = true;
+            } else if (userInput.equals("n")) {
+                isTable = false;
+            } else {
+                valid = false;
+                System.out.println("ERROR! An input of Y or N is required!");
+            }
+        } while (valid == false);
+
+        do {
+            valid = true;
+            System.out.println("Email :");
+            eMail = keyboard.next();
+            if (eMail.indexOf('@') < 0) {
+                valid = false;
+                System.out.println("ERROR! Email is invalid!");
+            }
+        } while (valid == false);
+
+        sort(seatClass, isWindow, isAisle, isTable, eMail);
+    }
 }

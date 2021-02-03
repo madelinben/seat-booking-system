@@ -236,4 +236,65 @@ public class SeatBookingSystem {
         } while (valid == false);
 
     }
+
+    public static void cancel() {
+        boolean valid = false;
+        String eMail;
+        do {
+            System.out.println("- - Seat Booking System - -\n\n- - CANCEL SEAT - -\nEmail :");
+            eMail = keyboard.next();
+
+            for(int i = 0; i < seatList.length; i++) {
+                if (seatList[i].eMail.equals(eMail)) {
+                    valid = true;
+                    print(i);
+                }
+            }
+
+            if (valid == false) {
+                System.out.println("ERROR! There is NO Reservation under that Email!");
+            }
+        } while (valid == false);
+
+        do {
+            valid = false;
+
+            System.out.println("Seat Number :");
+            String seatNum = keyboard.next();
+
+            int index = -1;
+            for(int i = 0; i < seatList.length; i++) {
+                if ((seatList[i].seatNum.toLowerCase().equals(seatNum)) && (seatList[i].eMail.equals(eMail))) {
+                    index = i;
+                }
+            }
+
+            if (index == -1) {
+                System.out.println("ERROR! That Seat Number does not exist!");
+            } else {
+                System.out.println("- - RESERVATION - -\nSEAT\tCLASS\tWINDOW\tAISLE\tTABLE\tPRICE\tEMAIL");
+                print(index);
+
+                do {
+                    System.out.println("Are you sure you want to cancel this reservation (Y/N) : ");
+                    String userInput = keyboard.next().trim().toLowerCase();
+                    if (userInput.equals("y")) {
+                        valid = true;
+                        seatList[index].eMail = "free";
+                        System.out.println("Successfully CANCELLED the reservation!");
+                        System.out.println("- - RESERVATION - -\nSEAT\tCLASS\tWINDOW\tAISLE\tTABLE\tPRICE\tEMAIL");
+                        print(index);
+                    } else if (userInput.equals("n")) {
+                        valid = true;
+                        System.out.println("Reservation has not been changed!");
+                        System.out.println("- - RESERVATION - -\nSEAT\tCLASS\tWINDOW\tAISLE\tTABLE\tPRICE\tEMAIL");
+                        print(index);
+                    } else {
+                        valid = false;
+                    }
+                } while (valid == false);
+            }
+
+        } while (valid == false);
+    }
 }

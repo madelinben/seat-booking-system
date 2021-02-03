@@ -32,4 +32,30 @@ public class SeatBookingSystem {
 
         System.exit(0);
     }
+
+    public static void setup() {
+        try {
+            String path = "seats.txt";
+            Scanner reader = new Scanner(new FileReader(path));
+
+            int counter = 0;
+            while (reader.hasNext()) {
+                String seatNum = reader.next();
+                String seatClass = reader.next();
+                boolean isWindow = reader.nextBoolean();
+                boolean isAisle = reader.nextBoolean();
+                boolean isTable = reader.nextBoolean();
+                double seatPrice = reader.nextDouble();
+                String eMail = reader.next();
+
+                seatList[counter] = new Reservation(seatNum, seatClass, isWindow, isAisle, isTable, seatPrice, eMail);
+                counter++;
+            }
+            reader.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("ERROR! Reading reservation file!");
+            e.printStackTrace();
+        }
+    }
 }

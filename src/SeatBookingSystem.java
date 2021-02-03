@@ -160,4 +160,80 @@ public class SeatBookingSystem {
 
         sort(seatClass, isWindow, isAisle, isTable, eMail);
     }
+
+    public static void sort(String seatClass, boolean isWindow, boolean isAisle, boolean isTable, String eMail) {
+        int[] weightedList = new int[18];
+        int closestMatch = -1;
+
+        for(int i = 0; i < seatList.length; i++) {
+            Reservation seat = seatList[i];
+            int check = 0;
+
+            if (seat.eMail.equals("free")) {
+                if (seat.seatClass.equals(seatClass)) {
+                    check++;
+                }
+                if (isWindow == seat.isWindow) {
+                    check++;
+                }
+                if (isAisle == seat.isAisle) {
+                    check++;
+                }
+                if (isTable == seat.isTable) {
+                    check++;
+                }
+            }
+
+            weightedList[i] = check;
+
+            if (check > closestMatch) {
+                closestMatch = check;
+            }
+        }
+
+        if (closestMatch == 4) {
+            System.out.println("- - Seat Booking System - -\n\n- - SEATS FOUND - -\nSEAT\tCLASS\tWINDOW\tAISLE\tTABLE\tPRICE\tEMAIL");
+        } else if (closestMatch == -1) {
+            System.out.println("- - Seat Booking System - -\n\n- - NO SEATS FOUND - -\nSEAT\tCLASS\tWINDOW\tAISLE\tTABLE\tPRICE\tEMAIL");
+        } else {
+            System.out.println("- - Seat Booking System - -\n\n- - CLOSEST MATCH - -\nSEAT\tCLASS\tWINDOW\tAISLE\tTABLE\tPRICE\tEMAIL");
+        }
+
+        for(int x = 0; x < seatList.length; x++) {
+            if (weightedList[x] == closestMatch) {
+                print(x);
+            }
+        }
+
+        boolean valid = false;
+        do {
+            System.out.println("Specify which Seat Number you would like to book : ");
+            String seatNum = keyboard.next().trim().toLowerCase();
+
+            for(int y = 0; y < seatList.length; y++) {
+                String seat = seatList[y].seatNum.toLowerCase();
+
+                if (seat.equals(seatNum)) {
+                    System.out.println("Are you sure you want to reserve Seat " + seatList[y].seatNum + " (Y/N) : ");
+                    String userInput = keyboard.next().trim().toLowerCase();
+                    if (userInput.equals("y")) {
+                        valid = true;
+                        seatList[y].eMail = eMail;
+                        System.out.println("Successfully Reserved Seat : "+ seatList[y].seatNum);
+                    } else if (userInput.equals("n")) {
+                        valid = true;
+                        System.out.println("Reservation has not been changed!");
+                    } else {
+                        valid = false;
+                    }
+                }
+            }
+
+            if (valid == false) {
+                System.out.println("ERROR! The Seat Number entered is not valid!");
+            }
+
+        } while (valid == false);
+
+    }
 }

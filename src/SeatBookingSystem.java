@@ -310,4 +310,22 @@ public class SeatBookingSystem {
         Reservation seat = seatList[listIndex];
         System.out.println(seat.seatNum + "\t" + seat.seatClass + "\t" + seat.isWindow + "\t" + seat.isAisle + "\t" + seat.isTable + "\t" + seat.seatPrice + "\t" + seat.eMail);
     }
+
+    public static void export() {
+        try {
+            String path = "seats.txt";
+            FileWriter writer = new FileWriter(path);
+
+            for(int i = 0; i < seatList.length; i++) {
+                Reservation seat = seatList[i];
+                writer.write(seat.seatNum + " " + seat.seatClass + " " + seat.isWindow + " " + seat.isAisle + " " + seat.isTable + " " + seat.seatPrice + " " + seat.eMail + "\n");
+            }
+
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("ERROR! Writing reservation file!");
+            e.printStackTrace();
+        }
+    }
 }

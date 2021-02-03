@@ -58,4 +58,30 @@ public class SeatBookingSystem {
             e.printStackTrace();
         }
     }
+
+    public static void menu() {
+        boolean valid = false;
+        do {
+            System.out.println("- - Seat Booking System - -\n\n- - MAIN MENU - -\n1 - Reserve Seat\n2 - Cancel Seat\n3 - View Seat Reservations\nQ - Quit\nPick :");
+            String userInput = keyboard.next().trim().toLowerCase();
+
+            if (userInput.equals("1")) {
+                valid = true;
+                reserve();
+            } else if (userInput.equals("2")) {
+                valid = true;
+                cancel();
+            } else if (userInput.equals("3")) {
+                valid = true;
+                view();
+            } else if (userInput.equals("q")) {
+                valid = true;
+                export();
+                System.exit(0);
+            } else {
+                valid = false;
+                System.out.println("ERROR! Input must be a number between 1 and 3, or the character Q to exit the program!");
+            }
+        } while (valid == false);
+    }
 }

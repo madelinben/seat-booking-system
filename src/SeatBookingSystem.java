@@ -297,4 +297,17 @@ public class SeatBookingSystem {
 
         } while (valid == false);
     }
+
+    public static void view() {
+        System.out.println("- - Seat Booking System - -\n\n- - VIEW SEAT RESERVATIONS - -\nSEAT\tCLASS\tWINDOW\tAISLE\tTABLE\tPRICE\tEMAIL");
+
+        for(int i = 0; i < seatList.length; i++) {
+            print(i);
+        }
+    }
+
+    public static void print(int listIndex) {
+        Reservation seat = seatList[listIndex];
+        System.out.println(seat.seatNum + "\t" + seat.seatClass + "\t" + seat.isWindow + "\t" + seat.isAisle + "\t" + seat.isTable + "\t" + seat.seatPrice + "\t" + seat.eMail);
+    }
 }
